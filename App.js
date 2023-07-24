@@ -15,7 +15,7 @@ export default function App() {
       return;
     }
 
-    ToastAndroid.show(`Title: ${title}, Body: ${body}, seconds: ${seconds}`, ToastAndroid.SHORT);
+    Alert.alert('Creating noti', `Title: ${title}, Body: ${body}, seconds: ${seconds}`);
 
   }
 

@@ -22,34 +22,32 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <Container safeArea padding={5}>
-        <>
-          <>
-            <FormControl>
-              <FormControl.Label>Title:</FormControl.Label>
-              <Input value={title} onChangeText={setTitle} />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Body:</FormControl.Label>
-              <Input value={body} onChangeText={setBody} />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Data (optional):</FormControl.Label>
-              <Input value={data} onChangeText={setData} />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Trigger in seconds</FormControl.Label>
-              <Input
-                value={seconds}
-                onChangeText={setSeconds}
-                keyboardType="numeric"
-              />
-            </FormControl>
-          </>
 
-          <Button onPress={scheduleLocalNotification} mt={10} width={'full'}>
-            Set Notification
-          </Button>
-        </>
+        <FormControl>
+          <FormControl.Label>Title:</FormControl.Label>
+          <Input value={title} onChangeText={setTitle} />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Body:</FormControl.Label>
+          <Input value={body} onChangeText={setBody} />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Data (optional):</FormControl.Label>
+          <Input value={data} onChangeText={setData} />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Trigger in seconds</FormControl.Label>
+          <Input
+            value={seconds}
+            onChangeText={setSeconds}
+            keyboardType="numeric"
+          />
+        </FormControl>
+
+        <Button onPress={scheduleLocalNotification} mt={10} width={'full'}>
+          Set Notification
+        </Button>
+
       </Container>
     </NativeBaseProvider>
   );

@@ -1,7 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, ToastAndroid, View } from 'react-native';
+import { Alert, Keyboard, StyleSheet, ToastAndroid, View } from 'react-native';
 import { Container, Content, Form, Item, Label, Button, Input, Text, NativeBaseProvider, FormControl, Box } from 'native-base';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 export default function App() {
 
   const [title, setTitle] = useState('');
@@ -15,8 +26,33 @@ export default function App() {
       return;
     }
 
-    ToastAndroid.show(`Title: ${title}, Body: ${body}, seconds: ${seconds}`, ToastAndroid.SHORT);
+    Alert.alert('Creating noti',`Title: ${title}, Body: ${body}, seconds: ${seconds}`);
 
+    await Notifications.requestPermissionsAsync();
+
+    // Notifications.addNotificationReceivedListener((notification) => {
+    //   Alert.alert("Got noti", notification.request.content.data.key);
+    // });
+    
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: body,
+        data: data ? { key: data } : undefined,
+        sound: Platform.OS === "android" ? null : "default",
+        priority: Notifications.AndroidNotificationPriority.HIGH,
+      },
+      trigger: {
+        seconds: parseInt(seconds),
+      },
+    });
+
+    setTitle('');
+    setBody('');
+    setData('');
+    setSeconds('');
+    Keyboard.dismiss();
+    ToastAndroid.show('Notification scheduled!', ToastAndroid.SHORT);
   }
 
   return (
